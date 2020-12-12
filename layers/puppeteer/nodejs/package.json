@@ -1,0 +1,9 @@
+{
+  "name": "nodejs",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "chrome-aws-lambda": "^5.3.1",
+    "puppeteer-core": "^5.3.1"
+  }
+}

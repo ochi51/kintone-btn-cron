@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  kintone-btn-cron
+
+Transform:
+- AWS::Serverless-2016-10-31
+
+Resources:
+  PuppeteerLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: layers/puppeteer
+      CompatibleRuntimes:
+        - nodejs12.x
+  AwsSdkLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: layers/aws-sdk
+      CompatibleRuntimes:
+        - nodejs12.x
+
+  KintoneBtnCron:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: kintoneアプリの一覧画面の任意IDのボタンを定期的にクリック
+      Runtime: nodejs12.x
+      Handler: src/index.handler
+      Layers:
+        - !Ref PuppeteerLayer
+        - !Ref AwsSdkLayer
+      Events:
+        CloudWatchEvent:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 0 1 1 ? *)
+      MemorySize: 512
+      Timeout: 100
+      Environment:
+        Variables:
+          SecretId: KintoneBtnCronEnv
+      Policies:
+        - arn:aws:iam::account-id:policy/AWSSecretManagerGetSercret

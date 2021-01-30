@@ -1,6 +1,6 @@
 # kintone-btn-cron
 
-kintone の任意のアプリの一覧画面で任意のIDのボタンを定期的にクリックするシステムのテンプレート
+kintone の任意のURLで任意のIDのボタンを定期的にクリックするシステムのテンプレート
 
 ### 必須環境
 
@@ -58,7 +58,7 @@ $ cd layers/puppeteer/nodejs
 $ yarn install
 ```
 
-ローカルでもLambda関数の実行
+ローカルでLambda関数の実行
 
 ```bash
 $ sam local invoke KintoneBtnCron
